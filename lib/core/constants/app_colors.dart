@@ -5,7 +5,7 @@ class AppColors {
   static const Color primaryLight = Color(0xFF6A48D7);
   static const Color primaryMediumColor = Color(0xFFE94A8E);
   static const Color primaryLightColor = Color(0xFFF8D7E5);
-  static const Color secondary = Color(0xFF00AEEF);
+  static const Color secondary = Color(0xffDACFF9);
   static const Color secondaryColor = Color(0xFF654321);
   static const Color secoundry = Color(0xff737791);
   static const Color backgroundColor = Color(0xFFF8F9FA);
@@ -25,7 +25,7 @@ class AppColors {
   static const Color info = Color(0xFF2196F3);
   static const Color orange = Color(0xffFFB948);
   static const Color darkOrange = Color(0xffE59400);
-  static const Color green = Color(0xff00B686);
+  static const Color green = Color(0xff2FAE84);
   static const Color red = Color(0xffFF5A5F);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
@@ -60,5 +60,60 @@ class AppColors {
       Color(0xFF3F888B),
       Color(0xFF30AD84),
     ],
+  );
+  static LinearGradient longGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: const [
+      Color(0xFF5C4199),
+      Color(0xFF5C4299),
+      Color(0xFF5B4399),
+      Color(0xFF5B4498),
+      Color(0xFF5A4598),
+      Color(0xFF5A4698),
+      Color(0xFF594998),
+      Color(0xFF584A97),
+      Color(0xFF574D97),
+      Color(0xFF564E96),
+      Color(0xFF555196),
+      Color(0xFF545495),
+      Color(0xFF535795),
+      Color(0xFF525994),
+      Color(0xFF515C94),
+      Color(0xFF505E93),
+      Color(0xFF4F6093),
+      Color(0xFF4E6392),
+      Color(0xFF4D6592),
+      Color(0xFF4C6991),
+      Color(0xFF4B6B91),
+      Color(0xFF4A6D91),
+      Color(0xFF496F90),
+      Color(0xFF487290),
+      Color(0xFF47748F),
+      Color(0xFF46778F),
+      Color(0xFF45798E),
+      Color(0xFF447B8E),
+      Color(0xFF437E8D),
+      Color(0xFF42808D),
+      Color(0xFF41838C),
+      Color(0xFF40858C),
+      Color(0xFF3F888B),
+      Color(0xFF3E8A8B),
+      Color(0xFF3D8D8A),
+      Color(0xFF3C8F8A),
+      Color(0xFF3B9289),
+      Color(0xFF3A9489),
+      Color(0xFF399788),
+      Color(0xFF389988),
+      Color(0xFF379B88),
+      Color(0xFF369E87),
+      Color(0xFF35A087),
+      Color(0xFF34A286),
+      Color(0xFF33A486),
+      Color(0xFF32A785),
+      Color(0xFF31A985),
+      Color(0xFF30AC84),
+    ],
+    // stops optional (Flutter distributes evenly if omitted)
   );
 }

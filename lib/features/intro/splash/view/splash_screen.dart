@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/constants/app_colors.dart';
 
 import '../../../../core/constants/navigation.dart';
 import '../../onboarding/view/onboarding_screen.dart';
@@ -49,16 +51,23 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: Image.asset(
-              'assets/images/png/splash.png',
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+        ),
+        child: Center(
+          child: ScaleTransition(
+            scale: _scaleAnimation,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: Image.asset(
+                'assets/images/png/logo-icon.png',
+                width: 200.w,
+                height: 200.h,
+                // fit: BoxFit.contain,
+              ),
             ),
           ),
         ),

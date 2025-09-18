@@ -1,7 +1,7 @@
-import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/constants/app_colors.dart';
 
 class AppTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -150,31 +150,33 @@ class _AppTextFieldState extends State<AppTextField> {
               vertical: 16.h,
             ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-          borderSide: const BorderSide(
-            color: Color(0xffEBEBEB),
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
+            color: AppColors.grey.withOpacity(0.3),
+            width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-          borderSide: const BorderSide(color: Color(0xffEBEBEB)),
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide:
+              BorderSide(color: AppColors.grey.withOpacity(0.3), width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
             color: AppColors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
             color: Color(0xFFE53935),
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
             color: Color(0xFFE53935),
             width: 2,
           ),

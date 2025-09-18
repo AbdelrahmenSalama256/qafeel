@@ -1,0 +1,226 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qafeel/core/constants/app_colors.dart';
+import 'package:qafeel/core/constants/widgets/print_util.dart';
+import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
+import 'package:qafeel/features/home/view/widget/banner.dart';
+import 'package:qafeel/features/home/view/widget/parking_section.dart';
+import 'package:qafeel/features/home/view/widget/statistics.dart';
+
+import 'widget/action_bottons.dart';
+import 'widget/blog_section.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScaffold(
+      showLogo: false,
+      gradientBegin: Alignment.topCenter,
+      gradientEnd: Alignment.bottomCenter,
+      gradientColors: [
+        AppColors.green,
+        AppColors.primary,
+      ],
+      containerColor: Color(0xffEDE6FF),
+      curveRadius: 30.r,
+      curveHeight: 150.h,
+      appBar: Container(
+        margin: EdgeInsets.all(15.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 35.w,
+              height: 35.h,
+              padding: EdgeInsets.all(7.w),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4.r,
+                    offset: Offset(0, 2.h),
+                  ),
+                ],
+              ),
+              child: SvgPicture.asset(
+                "assets/images/svg/notification.svg",
+                width: double.infinity,
+              ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ), // profile row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 60.w,
+                  height: 60.h,
+                  padding: EdgeInsets.all(6.w),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.white.withOpacity(0.4), width: 1.w),
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4.r,
+                        offset: Offset(0, 2.h),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.r),
+                    child: Image.asset(
+                      "assets/images/png/profile-user.jpg",
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "مرحباً بك",
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      "علاء التميمي",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Container(
+                  width: 60.w,
+                  height: 60.h,
+                  padding: EdgeInsets.all(6.w),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.r),
+                    child: Image.asset(
+                      "assets/images/png/qr-code.png",
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+      child: SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15.h,
+            ),
+            BannerHome(
+              height: 200.h,
+              imageUrls: [
+                'assets/images/png/banner.png',
+                'assets/images/png/banner.png',
+                'assets/images/png/banner.png',
+              ],
+              titles: [
+                'خليك في الأمان',
+                'خليك في الأمان',
+                'خليك في الأمان',
+              ],
+              descriptions: [
+                'وماتخليش حد يقفل عليك',
+                'وماتخليش حد يقفل عليك',
+                'وماتخليش حد يقفل عليك',
+              ],
+            ),
+
+            SizedBox(height: 20.h),
+            // First button
+            ActionButton(
+              text: 'الإبلاغ عن سيارة قافلة',
+              icon: "assets/images/svg/report.svg",
+              onPressed: () {
+                // Handle report car action
+              },
+              backgroundColor: Colors.white,
+              textColor: AppColors.primary,
+            ),
+
+            ActionButton(
+              text: 'سياراتي المفعول عليها',
+              icon: "assets/images/svg/car-garage.svg",
+              onPressed: () {
+                // Handle my cars action
+              },
+              backgroundColor: Colors.white,
+              textColor: AppColors.green,
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            ParkingSections(),
+            SizedBox(
+              height: 20.h,
+            ),
+            BlogSection(
+              imageUrls: [
+                'assets/images/png/logo-icon.png',
+                'assets/images/png/banner.png',
+                'assets/images/png/logo-icon.png',
+              ],
+              titles: [
+                'نصائح للوقاية من السيارات القافلة',
+                'كيف تتعامل مع المواقف الطارئة',
+                'أفضل الممارسات لسلامة المركبات',
+              ],
+              descriptions: [
+                'تعرف على أفضل الطرق للوقاية من مشاكل السيارات',
+                'دليل شامل للتعامل مع الحالات الطارئة على الطريق',
+                'نصائح مهمة للحفاظ على سلامة مركبتك',
+              ],
+              onBlogPressed: (index) {
+                // Handle blog item click
+                PrintUtil.debug('Blog $index clicked');
+              },
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            StatisticsSection(),
+            SizedBox(
+              height: 50.h,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

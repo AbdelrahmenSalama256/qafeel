@@ -1,6 +1,6 @@
-import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/constants/app_colors.dart';
 
 enum AppButtonType { primary, secondary, text }
 
@@ -17,8 +17,9 @@ class AppButton extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextStyle? textStyle;
-  final Color? backgroundColor; // New parameter for background color
-  final Color? borderColor; // New parameter for border color
+  final Color? backgroundColor;
+  final Color? borderColor;
+  final Gradient? gradient; // ✅ جديد
 
   const AppButton({
     super.key,
@@ -34,8 +35,9 @@ class AppButton extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.textStyle,
-    this.backgroundColor, // Add to constructor
-    this.borderColor, // Add to constructor
+    this.backgroundColor,
+    this.borderColor,
+    this.gradient, // ✅ جديد
   });
 
   @override
@@ -44,88 +46,92 @@ class AppButton extends StatelessWidget {
 
     switch (type) {
       case AppButtonType.primary:
-        return _buildPrimaryButton(context, isDisabled);
+        return _buildPrimary(context, isDisabled);
       case AppButtonType.secondary:
-        return _buildSecondaryButton(context, isDisabled);
+        return _buildSecondary(context, isDisabled);
       case AppButtonType.text:
-        return _buildTextButton(context, isDisabled);
+        return _buildText(context, isDisabled);
     }
   }
 
-  Widget _buildPrimaryButton(BuildContext context, bool isDisabled) {
+  Widget _buildPrimary(BuildContext context, bool isDisabled) {
     return SizedBox(
       width: isFullWidth ? double.infinity : width?.w,
       height: height.h,
-      child: ElevatedButton(
-        onPressed: isDisabled ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ??
-              AppColors.primary, // Use provided color or default
-          disabledBackgroundColor: (backgroundColor ?? AppColors.primary)
-              // ignore: deprecated_member_use
-              .withOpacity(0.5),
-          foregroundColor: Colors.white,
-          padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(4.r),
-          ),
-          elevation: 0, // Remove shadow
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient ?? AppColors.appGradientSimplified, // ✅
+          color:
+              gradient == null ? (backgroundColor ?? AppColors.primary) : null,
+          borderRadius: borderRadius ?? BorderRadius.circular(15.r),
         ),
-        child: _buildButtonContent(context, Colors.white),
+        child: ElevatedButton(
+          onPressed: isDisabled ? null : onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            disabledBackgroundColor: Colors.transparent,
+            foregroundColor: Colors.white,
+            shadowColor: Colors.transparent,
+            padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.circular(15.r),
+            ),
+          ),
+          child: _buildContent(Colors.white),
+        ),
       ),
     );
   }
 
-  Widget _buildSecondaryButton(BuildContext context, bool isDisabled) {
+  Widget _buildSecondary(BuildContext context, bool isDisabled) {
     return SizedBox(
       width: isFullWidth ? double.infinity : width?.w,
       height: height.h,
-      child: OutlinedButton(
-        onPressed: isDisabled ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
-          side: BorderSide(
-            color: isDisabled
-                ? Colors.grey
-                : borderColor ??
-                    const Color(
-                      0xFF1565C0,
-                    ), // Use provided border color or default
-            width: 1.0,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: borderRadius ?? BorderRadius.circular(15.r),
+          color: gradient == null ? (backgroundColor ?? Colors.white) : null,
+          border: Border.all(
+            color: isDisabled ? Colors.grey : borderColor ?? AppColors.primary,
           ),
-          padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(4.r),
-          ),
-          backgroundColor:
-              backgroundColor ?? Colors.white, // Use provided color or default
         ),
-        child: _buildButtonContent(context, AppColors.primary),
+        child: OutlinedButton(
+          onPressed: isDisabled ? null : onPressed,
+          style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            foregroundColor: AppColors.primary,
+            padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.circular(15.r),
+            ),
+          ),
+          child: _buildContent(AppColors.primary),
+        ),
       ),
     );
   }
 
-  Widget _buildTextButton(BuildContext context, bool isDisabled) {
+  Widget _buildText(BuildContext context, bool isDisabled) {
     return SizedBox(
       width: isFullWidth ? double.infinity : width?.w,
       height: height.h,
       child: TextButton(
         onPressed: isDisabled ? null : onPressed,
         style: TextButton.styleFrom(
+          backgroundColor: backgroundColor,
           foregroundColor: AppColors.primary,
           padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(20.r),
           ),
-          backgroundColor:
-              backgroundColor, // Use provided color or none (TextButton default)
         ),
-        child: _buildButtonContent(context, AppColors.primary),
+        child: _buildContent(AppColors.primary),
       ),
     );
   }
 
-  Widget _buildButtonContent(BuildContext context, Color textColor) {
+  Widget _buildContent(Color textColor) {
     if (isLoading) {
       return SizedBox(
         height: 24.h,
@@ -136,7 +142,6 @@ class AppButton extends StatelessWidget {
         ),
       );
     }
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -147,8 +152,8 @@ class AppButton extends StatelessWidget {
           style: textStyle ??
               TextStyle(
                 color: textColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w800,
               ),
         ),
         if (suffixIcon != null) ...[SizedBox(width: 8.w), suffixIcon!],
