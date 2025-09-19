@@ -65,5 +65,16 @@
   "plate_numbers": "أرقام اللوحة",
   "add_car_images_optional": "إضافة صور للسيارة (اختياري)",
   "attach_image": "إرفاق صورة",
-  "add_car": "إضافة سيارة"
+  "add_car": "إضافة سيارة",
+  "my_membership": "عضويتي",
+  "name": "علاء التميمي",
+  "email_label": "البريد الإلكتروني",
+  "address": "العنوان",
+  "my_requests": "طلباتي",
+  "last_update_date": "آخر تحديث بتاريخ 13/7/2025  8:00 مساءً",
+  "requests_count": "5 طلبات",
+  "car_exit_request": "طلب خروج بالسيارة",
+  "more": "المزيد",
+  "contact_us": "تواصل معنا",
+  "privacy_policy": "سياسة الخصوصية"
 }

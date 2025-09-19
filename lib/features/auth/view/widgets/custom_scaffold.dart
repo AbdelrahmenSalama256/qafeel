@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qafeel/features/profile/view/notification_button.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget child;
@@ -32,6 +32,8 @@ class CustomScaffold extends StatelessWidget {
   final AlignmentGeometry containerAlignment;
   final BoxShadow? containerShadow;
   final VoidCallback? ontap;
+  final List<double>? gradientStops;
+  final bool? bottom;
 
   const CustomScaffold({
     super.key,
@@ -45,6 +47,7 @@ class CustomScaffold extends StatelessWidget {
     this.gradientColors,
     this.gradientBegin,
     this.ontap,
+    this.bottom,
     this.gradientEnd,
     this.gradientOverlay,
     this.curveRadius = 30,
@@ -64,6 +67,7 @@ class CustomScaffold extends StatelessWidget {
     this.containerHeight,
     this.containerAlignment = Alignment.bottomCenter,
     this.containerShadow,
+    this.gradientStops,
   });
 
   @override
@@ -80,42 +84,8 @@ class CustomScaffold extends StatelessWidget {
           top: 0,
           left: 0,
           right: 0,
-          child: InkWell(
-            onTap: ontap,
-            child: appBar ??
-                Container(
-                  margin: EdgeInsets.all(15.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 6.h,
-                      ),
-                      Container(
-                        width: 35.w,
-                        height: 35.h,
-                        padding: EdgeInsets.all(7.w),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 4.r,
-                              offset: Offset(0, 2.h),
-                            ),
-                          ],
-                        ),
-                        child: SvgPicture.asset(
-                          "assets/images/svg/notification.svg",
-                          width: double.infinity,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-          ),
+          bottom: bottom != null ? 0 : null,
+          child: appBar ?? NotificationButton(ontap: ontap ?? () {}),
         ),
         Positioned.fill(
           top: defaultCurveHeight,
@@ -184,6 +154,7 @@ class CustomScaffold extends StatelessWidget {
         begin: gradientBegin ?? Alignment.topCenter,
         end: gradientEnd ?? Alignment.bottomCenter,
         colors: gradientColors!,
+        stops: gradientStops,
       );
     }
 

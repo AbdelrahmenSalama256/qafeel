@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qafeel/core/component/widgets/app_button.dart';
 import 'package:qafeel/core/component/widgets/app_dropdown.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
@@ -10,6 +9,7 @@ import 'package:qafeel/features/add_car/view/widgets/car_images.dart';
 import 'package:qafeel/features/add_car/view/widgets/palet_row.dart';
 import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
 
+import '../../profile/view/notification_button.dart';
 import 'cubit/add_car_cubit.dart';
 import 'cubit/add_car_state.dart';
 
@@ -39,32 +39,8 @@ class _AddCarView extends StatelessWidget {
           containerColor: const Color(0xffEDE6FF),
           curveRadius: 30.r,
           curveHeight: 70.h,
-          appBar: Container(
-            margin: EdgeInsets.all(15.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 6.h),
-                Container(
-                  width: 35.w,
-                  height: 35.h,
-                  padding: EdgeInsets.all(7.w),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4.r,
-                        offset: Offset(0, 2.h),
-                      ),
-                    ],
-                  ),
-                  child: SvgPicture.asset("assets/images/svg/notification.svg"),
-                ),
-              ],
-            ),
+          appBar: NotificationButton(
+            ontap: () {},
           ),
           child: SingleChildScrollView(
             clipBehavior: Clip.none,

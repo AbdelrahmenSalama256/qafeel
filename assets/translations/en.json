@@ -60,5 +60,16 @@
   "plate_letters": "Plate Letters",
   "plate_numbers": "Plate Numbers",
   "add_car_images_optional": "Add Car Images (Optional)",
-  "attach_image": "Attach Image"
+  "attach_image": "Attach Image",
+  "my_membership": "My Membership",
+  "name": "Alaa Al-Tamimi",
+  "email_label": "Email",
+  "address": "Address",
+  "my_requests": "My Requests",
+  "last_update_date": "Last updated on 13/7/2025 8:00 PM",
+  "requests_count": "5 Requests",
+  "car_exit_request": "Car Exit Request",
+  "more": "More",
+  "contact_us": "Contact Us",
+  "privacy_policy": "Privacy Policy"
 }

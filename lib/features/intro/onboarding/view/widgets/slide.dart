@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qafeel/core/component/widgets/app_button.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
+import 'package:qafeel/core/constants/navigation.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
+import 'package:qafeel/features/base/view/base_screen.dart';
 
 import '../../data/onboaring_model.dart';
 
@@ -98,7 +100,9 @@ class Slide extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 40.w),
               child: AppButton(
                 borderRadius: BorderRadius.circular(20.r),
-                onPressed: () {},
+                onPressed: () {
+                  navigateTo(context, BaseScreen());
+                },
                 backgroundColor: AppColors.primary,
                 text: "onboarding_start_button".tr(context),
               ),

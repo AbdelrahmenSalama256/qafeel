@@ -8,6 +8,7 @@ import 'package:qafeel/core/cubit/global_state.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
 import 'package:qafeel/features/add_car/view/add_car_screen.dart';
 import 'package:qafeel/features/home/view/home_screen.dart';
+import 'package:qafeel/features/profile/view/profile_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -21,7 +22,7 @@ class _BaseScreenState extends State<BaseScreen> {
     HomeScreen(),
     AddCarScreen(),
     Container(color: Colors.green),
-    Container(color: Colors.yellow),
+    ProfileScreen(),
   ];
 
   @override

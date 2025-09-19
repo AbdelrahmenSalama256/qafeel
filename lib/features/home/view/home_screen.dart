@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/constants/widgets/print_util.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
@@ -10,6 +9,7 @@ import 'package:qafeel/features/home/view/widget/banner.dart';
 import 'package:qafeel/features/home/view/widget/parking_section.dart';
 import 'package:qafeel/features/home/view/widget/statistics.dart';
 
+import '../../profile/view/notification_button.dart';
 import 'widget/action_bottons.dart';
 import 'widget/blog_section.dart';
 
@@ -34,26 +34,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 35.w,
-              height: 35.h,
-              padding: EdgeInsets.all(7.w),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 4.r,
-                    offset: Offset(0, 2.h),
-                  ),
-                ],
-              ),
-              child: SvgPicture.asset(
-                "assets/images/svg/notification.svg",
-                width: double.infinity,
-              ),
+            NotificationButton(
+              margin: 0,
+              ontap: () {},
             ),
             SizedBox(
               height: 15.h,
