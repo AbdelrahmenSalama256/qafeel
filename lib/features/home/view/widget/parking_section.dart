@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
+import 'package:qafeel/core/locale/app_loacl.dart';
 
 class ParkingSections extends StatefulWidget {
   const ParkingSections({super.key});
@@ -19,11 +20,11 @@ class _ParkingSectionsState extends State<ParkingSections> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('المقفول عليهم الآن'),
+        _buildSectionTitle('locked_now'.tr(context)),
         SizedBox(height: 8.h),
         _buildSectionContainers(_lockedSections),
         SizedBox(height: 24.h),
-        _buildSectionTitle('القافلين الآن'),
+        _buildSectionTitle('blocking_now'.tr(context)),
         SizedBox(height: 8.h),
         _buildSectionContainers(_occupiedSections),
       ],
@@ -44,7 +45,7 @@ class _ParkingSectionsState extends State<ParkingSections> {
         ),
         SizedBox(width: 8.w),
         Text(
-          'مشاهدة الكل',
+          'view_all'.tr(context),
           style: TextStyle(
             fontSize: 14.sp,
             color: Color(0xff808080),
@@ -61,7 +62,6 @@ class _ParkingSectionsState extends State<ParkingSections> {
       spacing: 4.w,
       runSpacing: 4.h,
       alignment: WrapAlignment.spaceBetween,
-      
       children: sections.map((section) {
         final isSelected = _selectedSection == section;
         return InkWell(

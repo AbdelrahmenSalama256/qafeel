@@ -8,6 +8,7 @@ import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/constants/widgets/print_util.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
 import 'package:qafeel/core/utils/validator.dart';
+import 'package:qafeel/features/auth/view/cubit/login/login_state.dart';
 import 'package:qafeel/features/auth/view/cubit/register/register_cubit.dart';
 import 'package:qafeel/features/auth/view/cubit/register/register_state.dart';
 import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
@@ -45,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
             curveHeight: 200.h,
             child: SingleChildScrollView(
               clipBehavior: Clip.none,
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              // padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Form(
                 key: cubit.formKey,
                 child: Column(
@@ -74,6 +75,11 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: AppTextField(
+                            enabled: state is LoginLoading ? false : true,
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 15.h,
+                              horizontal: 15.w,
+                            ),
                             controller: cubit.firstName,
                             hintText: "first_name".tr(context),
                             validator: (v) =>
@@ -83,6 +89,11 @@ class RegisterScreen extends StatelessWidget {
                         SizedBox(width: 12.w),
                         Expanded(
                           child: AppTextField(
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 15.h,
+                              horizontal: 15.w,
+                            ),
+                            enabled: state is LoginLoading ? false : true,
                             controller: cubit.lastName,
                             hintText: "last_name".tr(context),
                             validator: (v) =>
@@ -94,6 +105,11 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     AppTextField(
                       controller: cubit.phone,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 15.h,
+                        horizontal: 15.w,
+                      ),
+                      enabled: state is LoginLoading ? false : true,
                       hintText: "phone_number".tr(context),
                       keyboardType: TextInputType.phone,
                       validator: (v) => Validators.validatePhone(v, context),
@@ -101,6 +117,11 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     AppTextField(
                       controller: cubit.email,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 15.h,
+                        horizontal: 15.w,
+                      ),
+                      enabled: state is LoginLoading ? false : true,
                       hintText: "email".tr(context),
                       keyboardType: TextInputType.emailAddress,
                       validator: (v) => Validators.validateEmail(v, context),

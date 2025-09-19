@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/constants/widgets/print_util.dart';
+import 'package:qafeel/core/locale/app_loacl.dart';
 import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
 import 'package:qafeel/features/home/view/widget/banner.dart';
 import 'package:qafeel/features/home/view/widget/parking_section.dart';
@@ -26,7 +28,7 @@ class HomeScreen extends StatelessWidget {
       ],
       containerColor: Color(0xffEDE6FF),
       curveRadius: 30.r,
-      curveHeight: 150.h,
+      curveHeight: 200.h,
       appBar: Container(
         margin: EdgeInsets.all(15.w),
         child: Column(
@@ -92,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "مرحباً بك",
+                      "welcome".tr(context),
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: AppColors.white,
@@ -132,7 +134,56 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            InkWell(
+              onTap: () {
+                PrintUtil.info("Clickedddd");
+              },
+              child: Container(
+                width: double.infinity,
+                height: 40.h,
+                padding: EdgeInsetsDirectional.only(
+                  start: 15.w,
+                  top: 5.h,
+                  bottom: 5.h,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      "اختر المدينة",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.primary,
+                        fontSize: 18.sp,
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 40.w,
+                      height: 60.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.green,
+                        gradient: AppColors.longGradient,
+                      ),
+                      child: Icon(
+                        CupertinoIcons.search,
+                        size: 20.sp,
+                        color: AppColors.white,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -165,7 +216,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20.h),
             // First button
             ActionButton(
-              text: 'الإبلاغ عن سيارة قافلة',
+              text: "report_car".tr(context),
               icon: "assets/images/svg/report.svg",
               onPressed: () {
                 // Handle report car action
@@ -175,7 +226,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             ActionButton(
-              text: 'سياراتي المفعول عليها',
+              text: 'my_cars'.tr(context),
               icon: "assets/images/svg/car-garage.svg",
               onPressed: () {
                 // Handle my cars action

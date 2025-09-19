@@ -1,10 +1,11 @@
-import 'package:qafeel/core/constants/app_colors.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/constants/app_colors.dart';
 
 class AppDropdownField extends StatefulWidget {
   final String hint;
+  final Map<String, Color>? colorMap;
   final String? value; // Single select
   final List<String>? selectedValues; // Multi-select
   final List<String> items;
@@ -24,6 +25,7 @@ class AppDropdownField extends StatefulWidget {
     super.key,
     required this.hint,
     this.value,
+    this.colorMap,
     this.selectedValues,
     required this.items,
     required this.onChanged,
@@ -62,34 +64,34 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
         filled: true,
         contentPadding: widget.contentPadding ??
             EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 16.h,
+              horizontal: 15.w,
+              vertical: 7.h,
             ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(
             color: Color(0xffEBEBEB),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(color: Color(0xffEBEBEB)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(
             color: AppColors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(
             color: Color(0xFFE53935),
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: const BorderSide(
             color: Color(0xFFE53935),
             width: 2,
@@ -99,7 +101,10 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         alignLabelWithHint: true,
         labelStyle: widget.hintStyle ??
-            TextStyle(fontSize: 12.sp, color: Colors.grey.shade400),
+            TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
       ),
       isEmpty: widget.isMultiSelect
           ? _selectedValues.isEmpty
@@ -111,22 +116,48 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
   }
 
   Widget _buildSingleSelectDropdown() {
+    final selectedColor = widget.colorMap != null && widget.value != null
+        ? widget.colorMap![widget.value]
+        : null;
+
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         value: widget.value,
         isExpanded: true,
         hint: Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: Text(widget.hint, style: widget.hintStyle)),
-        icon: const Icon(Icons.keyboard_arrow_down),
+          decoration: BoxDecoration(color: Colors.white),
+          child: Text(widget.hint, style: widget.hintStyle),
+        ),
+        icon: Container(
+          width: 20.w,
+          height: 20.h,
+          decoration: BoxDecoration(
+            color: selectedColor ?? Colors.transparent,
+            // shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: selectedColor == null
+              ? Icon(
+                  CupertinoIcons.chevron_down,
+                  size: 20.sp,
+                  color: AppColors.primary,
+                )
+              : null,
+        ),
         onChanged: widget.enabled ? widget.onChanged : null,
         items: widget.items.map((item) {
+          // final itemColor =
+          //     widget.colorMap != null ? widget.colorMap![item] : null;
           return DropdownMenuItem<String>(
             value: item,
-            child: Text(
-              item,
-              style: widget.selectedTextStyle ??
-                  TextStyle(fontSize: 12.sp, color: AppColors.textPrimary),
+            child: Row(
+              children: [
+                Text(
+                  item,
+                  style: widget.selectedTextStyle ??
+                      TextStyle(fontSize: 12.sp, color: AppColors.textPrimary),
+                ),
+              ],
             ),
           );
         }).toList(),

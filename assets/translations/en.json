@@ -35,5 +35,30 @@
   "login_success": "Login successful",
   "otp_verified": "OTP verified successfully",
   "registration_success": "Account created successfully",
-  "registration_complete": "Registration completed successfully"
+  "registration_complete": "Registration completed successfully",
+  "welcome": "Welcome",
+  "banner_title": "Stay Safe",
+  "banner_description": "Don’t let anyone block you",
+
+  "report_car": "Report a Blocking Car",
+  "my_cars": "My Affected Cars",
+
+  "locked_now": "Currently Blocked",
+  "blocking_now": "Currently Blocking",
+  "view_all": "View All",
+
+  "statistics": "Statistics",
+  "subscribers": "Subscribers",
+  "parkings": "Parkings",
+  "cars": "Cars",
+  "add_car": "Add Car",
+  "type": "Type",
+  "model": "Model",
+  "manufacturing_year": "Manufacturing Year",
+  "color": "Color",
+  "light_green": "Light Green",
+  "plate_letters": "Plate Letters",
+  "plate_numbers": "Plate Numbers",
+  "add_car_images_optional": "Add Car Images (Optional)",
+  "attach_image": "Attach Image"
 }

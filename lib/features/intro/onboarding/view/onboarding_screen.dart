@@ -32,26 +32,31 @@ class _OnboardingView extends StatefulWidget {
   const _OnboardingView();
 
   @override
-  State<_OnboardingView> createState() => _OnboardingViewState();
+  State<_OnboardingView> createState() => __OnboardingViewState();
 }
 
-class _OnboardingViewState extends State<_OnboardingView> {
+class __OnboardingViewState extends State<_OnboardingView> {
   @override
   void initState() {
     super.initState();
-    // نسيب التحميل المسبق بس، من غير ترجمة
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final slidesForCache = _buildSlides(context);
-      for (final s in slidesForCache) {
-        final img = s.image;
-        if (img != null && img.toLowerCase().endsWith('.png')) {
-          precacheImage(AssetImage(img), context);
-        }
+    Future.delayed(Duration.zero, () {
+      if (mounted) {
+        _precacheImages(context);
       }
     });
   }
 
-  // دالة بتبني الـ slides مع الترجمة
+  Future<void> _precacheImages(BuildContext context) async {
+    final slidesForCache = _buildSlides(context);
+    for (final s in slidesForCache) {
+      final img = s.image;
+      if (img != null && img.toLowerCase().endsWith('.png')) {
+        final image = AssetImage(img);
+        await precacheImage(image, context);
+      }
+    }
+  }
+
   List<OnboardModel> _buildSlides(BuildContext context) => [
         OnboardModel(
           image: 'assets/images/svg/onbb-1.svg',

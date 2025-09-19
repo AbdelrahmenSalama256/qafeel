@@ -73,6 +73,10 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     AppTextField(
                       controller: cubit.phoneController,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 15.h,
+                        horizontal: 15.w,
+                      ),
                       hintText: "phone_number".tr(context),
                       keyboardType: TextInputType.phone,
                       validator: (p0) => Validators.validatePhone(p0, context),

@@ -6,6 +6,7 @@ import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/cubit/global_cubit.dart';
 import 'package:qafeel/core/cubit/global_state.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
+import 'package:qafeel/features/add_car/view/add_car_screen.dart';
 import 'package:qafeel/features/home/view/home_screen.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   final List<Widget> screens = [
     HomeScreen(),
-    Container(color: Colors.blue),
+    AddCarScreen(),
     Container(color: Colors.green),
     Container(color: Colors.yellow),
   ];

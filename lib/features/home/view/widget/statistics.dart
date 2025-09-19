@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/locale/app_loacl.dart';
 
 import '../../../../core/constants/app_colors.dart';
 
@@ -12,7 +13,7 @@ class StatisticsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'إحصائيات',
+          "statistics".tr(context),
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w800,
@@ -23,9 +24,12 @@ class StatisticsSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildStatItem(false, '250', 'مشترك', Icons.people),
-            _buildStatItem(true, '17', 'موقف', Icons.local_parking),
-            _buildStatItem(false, '250', 'سيارة', Icons.directions_car),
+            _buildStatItem(
+                false, '250', 'subscribers'.tr(context), Icons.people),
+            _buildStatItem(
+                true, '17', 'parkings'.tr(context), Icons.local_parking),
+            _buildStatItem(
+                false, '250', 'cars'.tr(context), Icons.directions_car),
           ],
         ),
       ],

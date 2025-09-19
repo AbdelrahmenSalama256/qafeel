@@ -40,5 +40,30 @@
   "resend_otp": "إعادة إرسال",
   "otp_verified": "تم التحقق من الرمز بنجاح",
   "registration_success": "تم إنشاء الحساب بنجاح",
-  "registration_complete": "تم إكمال التسجيل بنجاح"
+  "registration_complete": "تم إكمال التسجيل بنجاح",
+  "welcome": "مرحباً بك",
+  "banner_title": "خليك في الأمان",
+  "banner_description": "وماتخليش حد يقفل عليك",
+
+  "report_car": "الإبلاغ عن سيارة قافلة",
+  "my_cars": "سياراتي المفعول عليها",
+
+  "locked_now": "المقفول عليهم الآن",
+  "blocking_now": "القافلين الآن",
+  "view_all": "مشاهدة الكل",
+
+  "statistics": "إحصائيات",
+  "subscribers": "مشترك",
+  "parkings": "موقف",
+  "cars": "سيارة",
+  "type": "النوع",
+  "model": "الموديل",
+  "manufacturing_year": "سنة التصنيع",
+  "color": "اللون",
+  "light_green": "أخضر فاتح",
+  "plate_letters": "أحرف اللوحة",
+  "plate_numbers": "أرقام اللوحة",
+  "add_car_images_optional": "إضافة صور للسيارة (اختياري)",
+  "attach_image": "إرفاق صورة",
+  "add_car": "إضافة سيارة"
 }
