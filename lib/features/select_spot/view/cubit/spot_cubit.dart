@@ -8,6 +8,8 @@ import 'package:qafeel/core/constants/widgets/print_util.dart';
 import 'package:qafeel/core/cubit/global_cubit.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
 
+import '../../../../core/constants/navigation.dart';
+import '../select_available_spot_screen.dart';
 import 'spot_state.dart';
 
 class SpotsCubit extends Cubit<SpotsState> {
@@ -16,6 +18,34 @@ class SpotsCubit extends Cubit<SpotsState> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   final List<Map<String, dynamic>> _availableSpots = [
+    {
+      'spot': 'A1',
+      'meterDistance': '100',
+      'streetName': 'Main St',
+      'partWayName': 'Side A',
+      'wayNumber': '12'
+    },
+    {
+      'spot': 'A6',
+      'meterDistance': '150',
+      'streetName': 'Park Ave',
+      'partWayName': 'Side B',
+      'wayNumber': '15'
+    },
+    {
+      'spot': 'B3',
+      'meterDistance': '200',
+      'streetName': 'Central Rd',
+      'partWayName': 'Side C',
+      'wayNumber': '20'
+    },
+    {
+      'spot': 'C5',
+      'meterDistance': '250',
+      'streetName': 'Broadway',
+      'partWayName': 'Side D',
+      'wayNumber': '25'
+    },
     {
       'spot': 'A1',
       'meterDistance': '100',
@@ -83,9 +113,9 @@ class SpotsCubit extends Cubit<SpotsState> {
       return;
     }
     final globalCubit = context.read<GlobalCubit>();
-    if (globalCubit.currentLat == 0.0 && globalCubit.currentLong == 0.0) {
-      globalCubit.getCurrentLocation();
-    }
+    // if (globalCubit.currentLat == 0.0 && globalCubit.currentLong == 0.0) {
+    //   globalCubit.getCurrentLocation();
+    // }
 
     final lat =
         (globalCubit.currentLat == 0.0) ? 25.276987 : globalCubit.currentLat;
@@ -179,7 +209,7 @@ class SpotsCubit extends Cubit<SpotsState> {
   }
 
   void loadMapStyle(GoogleMapController controller, BuildContext context) {
-    if (!state.isMapLoaded && !isClosed) {
+    if (!isClosed) {
       DefaultAssetBundle.of(context)
           .loadString("assets/map_styles/light.json")
           .then((style) {
@@ -244,6 +274,19 @@ class SpotsCubit extends Cubit<SpotsState> {
         selectedSpotDetails: selectedSpotData,
       ));
     }
+  }
+
+  void navigateToSelectAvailableSpotScreen(BuildContext context) {
+    emit(state.copyWith(isMapLoaded: false)); // Reset map style flag
+    navigateTo(
+      context,
+      BlocProvider.value(
+        value: this,
+        child: SelectAvailableSpotScreen(
+          onSpotSelected: selectSpot,
+        ),
+      ),
+    );
   }
 
   List<Map<String, dynamic>> get availableSpots => _availableSpots;

@@ -20,7 +20,9 @@ class SelectAvailableSpotScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SpotsCubit>();
-
+    if (cubit.state.initialCameraPosition == null) {
+      cubit.initializeLocation(context);
+    }
     return BlocBuilder<SpotsCubit, SpotsState>(
       builder: (context, state) {
         return Scaffold(
@@ -31,72 +33,75 @@ class SelectAvailableSpotScreen extends StatelessWidget {
                     semanticsLabel: "loading".tr(context),
                   ),
                 )
-              : Stack(
-                  children: [
-                    GoogleMap(
-                      initialCameraPosition: state.initialCameraPosition!,
-                      onMapCreated: (controller) {
-                        // cubit.onMapCreated(controller);
-                        // cubit.loadMapStyle(controller, context);
-                      },
-                      buildingsEnabled: true,
-                      myLocationButtonEnabled: false,
-                      myLocationEnabled: true,
-                      zoomControlsEnabled: false,
-                      onCameraMove: (position) =>
-                          cubit.onCameraMove(position, context),
-                      // onCameraIdle: () => cubit.getAddressFromLatLng(context),
-                    ),
-                    if (!state.isMapLoaded)
-                      Container(
-                        color: Colors.white.withOpacity(0.7),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.primary,
-                            semanticsLabel: "loading".tr(context),
-                          ),
-                        ),
-                      ),
-                    Positioned(
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 60.h),
-                        child: Center(
-                          child: Icon(
-                            Icons.location_on,
-                            color: AppColors.green,
-                            size: 50.sp,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: ParkingBottomSheet(
-                        isAddressSelected: state.isAddressSelected,
-                        streetName: state.streetName ?? "",
-                        fullAddress: state.fullAddress ?? "",
-                        onConfirmPressed: () {
-                          if (state.selectedSpot != null &&
-                              state.markerPosition != null) {
-                            Navigator.pop(
-                              context,
-                              {
-                                'lat': state.markerPosition!.latitude,
-                                'lng': state.markerPosition!.longitude,
-                                'address': state.address,
-                                'selectedSpot': state.selectedSpot,
-                                'selectedSpotDetails':
-                                    state.selectedSpotDetails,
-                              },
-                            );
-                          }
+              : SafeArea(
+                  top: false,
+                  child: Stack(
+                    children: [
+                      GoogleMap(
+                        initialCameraPosition: state.initialCameraPosition!,
+                        onMapCreated: (controller) {
+                          cubit.onMapCreated(
+                              controller); // Ensure controller is set
+                          cubit.loadMapStyle(controller, context);
                         },
-                        onSpotSelected: cubit.selectSpot,
+                        buildingsEnabled: true,
+                        myLocationButtonEnabled: false,
+                        myLocationEnabled: true,
+                        zoomControlsEnabled: false,
+                        onCameraMove: (position) =>
+                            cubit.onCameraMove(position, context),
                       ),
-                    ),
-                  ],
+                      if (!state.isMapLoaded)
+                        Container(
+                          color: Colors.white.withOpacity(0.7),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
+                              semanticsLabel: "loading".tr(context),
+                            ),
+                          ),
+                        ),
+                      Positioned(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 60.h),
+                          child: Center(
+                            child: Icon(
+                              Icons.location_on,
+                              color: AppColors.green,
+                              size: 50.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: ParkingBottomSheet(
+                          isAddressSelected: state.isAddressSelected,
+                          streetName: state.streetName ?? "",
+                          fullAddress: state.fullAddress ?? "",
+                          onConfirmPressed: () {
+                            if (state.selectedSpot != null &&
+                                state.markerPosition != null) {
+                              Navigator.pop(
+                                context,
+                                {
+                                  'lat': state.markerPosition!.latitude,
+                                  'lng': state.markerPosition!.longitude,
+                                  'address': state.address,
+                                  'selectedSpot': state.selectedSpot,
+                                  'selectedSpotDetails':
+                                      state.selectedSpotDetails,
+                                },
+                              );
+                            }
+                          },
+                          onSpotSelected: cubit.selectSpot,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
         );
       },

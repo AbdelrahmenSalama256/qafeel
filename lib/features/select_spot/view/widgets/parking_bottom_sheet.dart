@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,7 +94,7 @@ class ParkingBottomSheet extends StatelessWidget {
         length: 3,
         child: Container(
           constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.5),
+              maxHeight: MediaQuery.of(context).size.height * 0.4),
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.only(
@@ -197,12 +198,25 @@ class ParkingBottomSheet extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 200.h,
-                        child: TabBarView(
+                        child: Column(
                           children: [
-                            _buildSpotGrid(cubit.availableSpots, true, context),
-                            _buildSpotGrid(
-                                cubit.currentlyClosedSpots, false, context),
-                            _buildSpotGrid(cubit.lockedSpots, false, context),
+                            Expanded(
+                              child: TabBarView(
+                                children: [
+                                  _buildSpotGrid(
+                                      cubit.availableSpots, true, context),
+                                  _buildSpotGrid(cubit.currentlyClosedSpots,
+                                      false, context),
+                                  _buildSpotGrid(
+                                      cubit.lockedSpots, false, context),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              CupertinoIcons.chevron_down,
+                              color: AppColors.white,
+                              size: 20.sp,
+                            ),
                           ],
                         ),
                       ),

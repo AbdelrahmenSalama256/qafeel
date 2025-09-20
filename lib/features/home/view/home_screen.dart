@@ -172,6 +172,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     // const Spacer(),
+                    SizedBox(
+                      width: 20.w,
+                    ),
                     Container(
                       width: 40.w,
                       height: 60.w,
@@ -257,7 +260,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 20.h),
             StatisticsSection(),
-            SizedBox(height: 50.h),
           ],
         ),
       ),

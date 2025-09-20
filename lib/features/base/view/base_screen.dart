@@ -40,7 +40,9 @@ class _BaseScreenState extends State<BaseScreen> {
           backgroundColor: AppColors.white,
           body: Stack(
             children: [
-              screens[cubit.currentNavIndex],
+              Container(
+                  margin: EdgeInsets.only(bottom: 70.h),
+                  child: screens[cubit.currentNavIndex]),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SafeArea(

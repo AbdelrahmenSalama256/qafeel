@@ -60,7 +60,6 @@ class _AddCarView extends StatelessWidget {
                 CarImagesSection(cubit: cubit, state: state),
                 SizedBox(height: 40.h),
                 _buildSubmitButton(context, cubit, state),
-                SizedBox(height: 70.h),
               ],
             ),
           ),
