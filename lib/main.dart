@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,21 +39,7 @@ void main() async {
           create: (context) => sl<GlobalCubit>()..init(),
         ),
       ],
-      child: DevicePreview(
-        enabled: !kReleaseMode,
-
-        // enabled: false,
-        builder: (context) => UpgradeAlert(
-            upgrader: Upgrader(
-              // minAppVersion: "1.0.1",
-              //  debugLogging: true,
-              debugDisplayAlways: true,
-            ),
-            // navigatorKey: AppRouter.router.routerDelegate
-            // .navigatorKey, // Provide a fallback for child
-            dialogStyle: UpgradeDialogStyle.cupertino,
-            child: Qafeel()),
-      ),
+      child: Qafeel(),
     ),
   );
 }

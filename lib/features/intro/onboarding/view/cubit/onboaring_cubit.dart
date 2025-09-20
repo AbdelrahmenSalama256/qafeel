@@ -1,58 +1,52 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/onboaring_model.dart';
 import 'onboaring_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit() : super(OnboardingInitial()) {
-    positionController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: ticker,
-    );
-    dotController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: ticker,
-    );
-    positionAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: positionController,
-        curve: Curves.easeOut,
-      ),
-    );
-    dotAnimation = Tween<double>(begin: 0.0, end: -10.0).animate(
-      CurvedAnimation(
-        parent: dotController,
-        curve: Curves.easeOut,
-      ),
-    );
-
-    positionController.forward();
-    dotController.forward().then((_) => dotController.reverse());
+    pageController = PageController(viewportFraction: 1);
+    currentPage = 0;
   }
 
-  static late TickerProvider ticker;
-
-  late final PageController pageController =
-      PageController(viewportFraction: 1);
-  late final AnimationController positionController;
-  late final AnimationController dotController;
-  late final Animation<double> positionAnimation;
-  late final Animation<double> dotAnimation;
-
+  late final PageController pageController;
   int currentPage = 0;
 
   void onPageChanged(int page) {
     currentPage = page;
     emit(OnboardingPageChanged(page));
-    positionController
-      ..reset()
-      ..forward();
-    dotController.forward().then((_) => dotController.reverse());
   }
 
   void disposeControllers() {
     pageController.dispose();
-    positionController.dispose();
-    dotController.dispose();
+  }
+
+  Future<void> precacheImages(BuildContext context) async {
+    final slides = [
+      OnboardModel(
+        image: 'assets/images/png/onbb-1.png',
+        title: 'onboarding_title1',
+        subtitle: 'onboarding_subtitle1',
+      ),
+      OnboardModel(
+        image: 'assets/images/png/onbb-2.png',
+        title: 'onboarding_title2',
+        subtitle: 'onboarding_subtitle2',
+      ),
+      OnboardModel(
+        image: 'assets/images/png/shape.png',
+        title: 'onboarding_title3',
+        subtitle: 'onboarding_subtitle3',
+        isLast: true,
+      ),
+    ];
+    for (final s in slides) {
+      final img = s.image;
+      if (img != null && img.toLowerCase().endsWith('.png')) {
+        final image = AssetImage(img);
+        await precacheImage(image, context);
+      }
+    }
   }
 }

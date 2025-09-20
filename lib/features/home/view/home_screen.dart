@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/constants/widgets/print_util.dart';
@@ -8,13 +9,22 @@ import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
 import 'package:qafeel/features/home/view/widget/banner.dart';
 import 'package:qafeel/features/home/view/widget/parking_section.dart';
 import 'package:qafeel/features/home/view/widget/statistics.dart';
+import 'package:qafeel/features/select_spot/view/select_spot_screen.dart';
 
 import '../../profile/view/notification_button.dart';
+import '../../select_spot/view/cubit/spot_cubit.dart';
 import 'widget/action_bottons.dart';
 import 'widget/blog_section.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String? selectedLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         AppColors.green,
         AppColors.primary,
       ],
-      containerColor: Color(0xffEDE6FF),
+      containerColor: const Color(0xffEDE6FF),
       curveRadius: 30.r,
       curveHeight: 200.h,
       appBar: Container(
@@ -38,9 +48,7 @@ class HomeScreen extends StatelessWidget {
               margin: 0,
               ontap: () {},
             ),
-            SizedBox(
-              height: 15.h,
-            ), // profile row
+            SizedBox(height: 15.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,9 +92,7 @@ class HomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                    SizedBox(height: 5.h),
                     Text(
                       "علاء التميمي",
                       style: TextStyle(
@@ -97,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   width: 60.w,
                   height: 60.h,
@@ -118,12 +124,26 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 15.h,
-            ),
+            SizedBox(height: 15.h),
             InkWell(
-              onTap: () {
-                PrintUtil.info("Clickedddd");
+              onTap: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) =>
+                          SpotsCubit()..initializeLocation(context),
+                      child: const SelectSpotScreen(),
+                    ),
+                  ),
+                );
+
+                if (result != null && result is Map) {
+                  setState(() {
+                    selectedLocation =
+                        result['address'] ?? "choose_city".tr(context);
+                  });
+                }
               },
               child: Container(
                 width: double.infinity,
@@ -139,15 +159,19 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text(
-                      "اختر المدينة",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primary,
-                        fontSize: 18.sp,
+                    Expanded(
+                      child: Text(
+                        selectedLocation ?? "choose_city".tr(context),
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primary,
+                          fontSize: 18.sp,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                    Spacer(),
+                    // const Spacer(),
                     Container(
                       width: 40.w,
                       height: 60.w,
@@ -174,9 +198,7 @@ class HomeScreen extends StatelessWidget {
         clipBehavior: Clip.none,
         child: Column(
           children: [
-            SizedBox(
-              height: 15.h,
-            ),
+            SizedBox(height: 15.h),
             BannerHome(
               height: 200.h,
               imageUrls: [
@@ -185,45 +207,34 @@ class HomeScreen extends StatelessWidget {
                 'assets/images/png/banner.png',
               ],
               titles: [
-                'خليك في الأمان',
-                'خليك في الأمان',
-                'خليك في الأمان',
+                "خليك في الأمان",
+                "خليك في الأمان",
+                "خليك في الأمان",
               ],
               descriptions: [
-                'وماتخليش حد يقفل عليك',
-                'وماتخليش حد يقفل عليك',
-                'وماتخليش حد يقفل عليك',
+                "وماتخليش حد يقفل عليك",
+                "وماتخليش حد يقفل عليك",
+                "وماتخليش حد يقفل عليك",
               ],
             ),
-
             SizedBox(height: 20.h),
-            // First button
             ActionButton(
               text: "report_car".tr(context),
               icon: "assets/images/svg/report.svg",
-              onPressed: () {
-                // Handle report car action
-              },
+              onPressed: () {},
               backgroundColor: Colors.white,
               textColor: AppColors.primary,
             ),
-
             ActionButton(
-              text: 'my_cars'.tr(context),
+              text: "my_cars".tr(context),
               icon: "assets/images/svg/car-garage.svg",
-              onPressed: () {
-                // Handle my cars action
-              },
+              onPressed: () {},
               backgroundColor: Colors.white,
               textColor: AppColors.green,
             ),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             ParkingSections(),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             BlogSection(
               imageUrls: [
                 'assets/images/png/logo-icon.png',
@@ -231,27 +242,22 @@ class HomeScreen extends StatelessWidget {
                 'assets/images/png/logo-icon.png',
               ],
               titles: [
-                'نصائح للوقاية من السيارات القافلة',
-                'كيف تتعامل مع المواقف الطارئة',
-                'أفضل الممارسات لسلامة المركبات',
+                "blog1_title".tr(context),
+                "blog2_title".tr(context),
+                "blog3_title".tr(context),
               ],
               descriptions: [
-                'تعرف على أفضل الطرق للوقاية من مشاكل السيارات',
-                'دليل شامل للتعامل مع الحالات الطارئة على الطريق',
-                'نصائح مهمة للحفاظ على سلامة مركبتك',
+                "blog1_desc".tr(context),
+                "blog2_desc".tr(context),
+                "blog3_desc".tr(context),
               ],
               onBlogPressed: (index) {
-                // Handle blog item click
                 PrintUtil.debug('Blog $index clicked');
               },
             ),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             StatisticsSection(),
-            SizedBox(
-              height: 50.h,
-            ),
+            SizedBox(height: 50.h),
           ],
         ),
       ),

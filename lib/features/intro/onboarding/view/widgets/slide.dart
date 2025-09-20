@@ -5,8 +5,8 @@ import 'package:qafeel/core/component/widgets/app_button.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
 import 'package:qafeel/core/constants/navigation.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
-import 'package:qafeel/features/base/view/base_screen.dart';
 
+import '../../../../auth/view/login_screen.dart';
 import '../../data/onboaring_model.dart';
 
 class Slide extends StatelessWidget {
@@ -23,57 +23,33 @@ class Slide extends StatelessWidget {
             width: 200.w,
             height: 200.h,
             decoration: BoxDecoration(
-                // color: const Color(0xffE8E0FF),
-                // borderRadius: BorderRadius.circular(20.r),
-                ),
-            child: ClipRRect(
+              // color: const Color(0xffE8E0FF),
               borderRadius: BorderRadius.circular(20.r),
-              child: slide.isLast!
-                  ? Container(
-                      width: 150.w,
-                      height: 150.h,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50.r),
-                          topRight: Radius.circular(100.r),
-                          bottomLeft: Radius.circular(50.r),
-                          bottomRight: Radius.circular(100.r),
-                        ),
-                      ),
-                      child: Image.asset(
-                        "assets/images/png/logo-icon.png",
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )
-                  : SvgPicture.asset(
-                      width: 300.w,
-                      height: 300.h,
-                      slide.image!,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        width: 150.w,
-                        height: 150.h,
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50.r),
-                            topRight: Radius.circular(100.r),
-                            bottomLeft: Radius.circular(50.r),
-                            bottomRight: Radius.circular(100.r),
-                          ),
-                        ),
-                        child: Image.asset(
-                          "assets/images/png/logo-icon.png",
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
-                      ),
-                      fit: BoxFit.contain,
-                    ),
             ),
+            child: slide.isLast!
+                ? Container(
+                    width: 150.w,
+                    height: 150.h,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.r),
+                        topRight: Radius.circular(100.r),
+                        bottomLeft: Radius.circular(50.r),
+                        bottomRight: Radius.circular(100.r),
+                      ),
+                    ),
+                    child: Image.asset(
+                      "assets/images/png/logo-icon.png",
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  )
+                : SvgPicture.asset(
+                    slide.image!,
+                    fit: BoxFit.contain,
+                  ),
           ),
           SizedBox(height: 30.h),
           Text(
@@ -101,7 +77,7 @@ class Slide extends StatelessWidget {
               child: AppButton(
                 borderRadius: BorderRadius.circular(20.r),
                 onPressed: () {
-                  navigateTo(context, BaseScreen());
+                  navigateAndFinish(context, LoginScreen());
                 },
                 backgroundColor: AppColors.primary,
                 text: "onboarding_start_button".tr(context),

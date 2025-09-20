@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qafeel/features/profile/view/notification_button.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget child;
@@ -85,7 +84,7 @@ class CustomScaffold extends StatelessWidget {
           left: 0,
           right: 0,
           bottom: bottom != null ? 0 : null,
-          child: appBar ?? NotificationButton(ontap: ontap ?? () {}),
+          child: appBar ?? SizedBox.shrink(),
         ),
         Positioned.fill(
           top: defaultCurveHeight,

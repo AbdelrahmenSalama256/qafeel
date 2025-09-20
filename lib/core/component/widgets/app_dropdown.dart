@@ -133,7 +133,6 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
           height: 20.h,
           decoration: BoxDecoration(
             color: selectedColor ?? Colors.transparent,
-            // shape: BoxShape.circle,
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: selectedColor == null
@@ -144,23 +143,64 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
                 )
               : null,
         ),
+        dropdownColor: Colors.white,
+        menuMaxHeight: 300.h,
+        elevation: 1,
+        borderRadius: BorderRadius.circular(15.r),
         onChanged: widget.enabled ? widget.onChanged : null,
         items: widget.items.map((item) {
-          // final itemColor =
-          //     widget.colorMap != null ? widget.colorMap![item] : null;
           return DropdownMenuItem<String>(
             value: item,
-            child: Row(
-              children: [
-                Text(
-                  item,
-                  style: widget.selectedTextStyle ??
-                      TextStyle(fontSize: 12.sp, color: AppColors.textPrimary),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade200,
+                    width: 1.0,
+                  ),
                 ),
-              ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.h),
+                child: Row(
+                  children: [
+                    if (widget.colorMap != null &&
+                        widget.colorMap![item] != null)
+                      Container(
+                        width: 16.w,
+                        height: 16.h,
+                        margin: EdgeInsets.only(right: 10.w),
+                        decoration: BoxDecoration(
+                          color: widget.colorMap![item],
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    Expanded(
+                      child: Text(
+                        item,
+                        style: widget.selectedTextStyle ??
+                            TextStyle(
+                                fontSize: 12.sp, color: AppColors.textPrimary),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         }).toList(),
+        selectedItemBuilder: (BuildContext context) {
+          return widget.items.map<Widget>((String item) {
+            return Container(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                item,
+                style: widget.selectedTextStyle ??
+                    TextStyle(fontSize: 12.sp, color: AppColors.textPrimary),
+              ),
+            );
+          }).toList();
+        },
       ),
     );
   }
@@ -206,34 +246,63 @@ class _AppDropdownFieldState extends State<AppDropdownField> {
       context: context,
       builder: (context) {
         final tempValues = List<String>.from(_selectedValues);
-        return AlertDialog(
-          title: Text(widget.hint),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView(
-              shrinkWrap: true,
-              children: widget.items.map((item) {
-                return CheckboxListTile(
-                  value: tempValues.contains(item),
-                  title: Text(item),
-                  activeColor: AppColors.primary,
-                  onChanged: (selected) {
-                    setState(() {
-                      selected == true
-                          ? tempValues.add(item)
-                          : tempValues.remove(item);
-                    });
-                  },
-                );
-              }).toList(),
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.r),
+          ),
+          elevation: 5,
+          shadowColor: Colors.black.withOpacity(0.3),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.r),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: Text(
+                    widget.hint,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Divider(height: 1, color: Colors.grey.shade300),
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 300.h),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: widget.items.map((item) {
+                      return CheckboxListTile(
+                        value: tempValues.contains(item),
+                        title: Text(item),
+                        activeColor: AppColors.primary,
+                        onChanged: (selected) {
+                          setState(() {
+                            selected == true
+                                ? tempValues.add(item)
+                                : tempValues.remove(item);
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Divider(height: 1, color: Colors.grey.shade300),
+                Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context, tempValues),
+                    child:
+                        Text("تم", style: TextStyle(color: AppColors.primary)),
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, tempValues),
-              child: Text("تم", style: TextStyle(color: AppColors.primary)),
-            ),
-          ],
         );
       },
     );

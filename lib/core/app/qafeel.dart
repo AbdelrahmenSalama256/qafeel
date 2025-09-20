@@ -46,11 +46,10 @@ class Qafeel extends StatelessWidget {
 
               //!App Scroll Behavior
               scrollBehavior: ScrollConfiguration.of(context)
-                  .copyWith(physics: const ClampingScrollPhysics()),
+                  .copyWith(physics: const BouncingScrollPhysics()),
               //! Theme
 
               //!Routing
-              // home: const SplashScreen(),
               home: const SplashScreen(),
             );
           },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
-import 'package:qafeel/features/base/view/base_screen.dart';
 
 import '../../../../core/constants/navigation.dart';
+import '../../onboarding/view/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,11 +35,26 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    _controller.forward().then(
-      (value) {
-        navigateTo(context, BaseScreen());
-      },
-    );
+    _precacheImages().then((_) {
+      _controller.forward().then(
+        (value) {
+          navigateTo(context, OnboardingScreen());
+        },
+      );
+    });
+  }
+
+  Future<void> _precacheImages() async {
+    final images = [
+      'assets/images/png/onbb-1.png',
+      'assets/images/png/onbb-2.png',
+    ];
+    for (final img in images) {
+      if (img.toLowerCase().endsWith('.svg')) {
+        final image = AssetImage(img);
+        await precacheImage(image, context);
+      }
+    }
   }
 
   @override

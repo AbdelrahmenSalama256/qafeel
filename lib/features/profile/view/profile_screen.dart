@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qafeel/core/constants/app_colors.dart';
+import 'package:qafeel/core/constants/navigation.dart';
 import 'package:qafeel/core/locale/app_loacl.dart';
 import 'package:qafeel/features/auth/view/widgets/custom_scaffold.dart';
 import 'package:qafeel/features/profile/view/menu_item.dart';
 import 'package:qafeel/features/profile/view/notification_button.dart';
 import 'package:qafeel/features/profile/view/recent_request_card.dart';
+import 'package:qafeel/features/requests/view/my_requests_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -154,7 +156,9 @@ class ProfileScreen extends StatelessWidget {
                           reqDate: "last_update_date".tr(context),
                           reqLenght: "requests_count".tr(context),
                           reqTitle: "car_exit_request".tr(context),
-                          ontap: () {},
+                          ontap: () {
+                            navigateTo(context, MyRequestsScreen());
+                          },
                         ),
                       ),
                       SizedBox(
@@ -165,7 +169,9 @@ class ProfileScreen extends StatelessWidget {
                           reqDate: "last_update_date".tr(context),
                           reqLenght: "requests_count".tr(context),
                           reqTitle: "car_exit_request".tr(context),
-                          ontap: () {},
+                          ontap: () {
+                            // navigateTo(context, MyRequestsScreen());
+                          },
                         ),
                       ),
                     ],

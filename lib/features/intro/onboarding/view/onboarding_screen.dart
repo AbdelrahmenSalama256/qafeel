@@ -9,9 +9,8 @@ import 'package:qafeel/features/auth/view/login_screen.dart';
 import '../data/onboaring_model.dart';
 import 'cubit/onboaring_cubit.dart';
 import 'cubit/onboaring_state.dart';
-import 'widgets/animated_shape.dart';
 import 'widgets/dots.dart';
-import 'widgets/keep_alive.dart';
+import 'widgets/slide.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -19,10 +18,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) {
-        OnboardingCubit.ticker = Navigator.of(context);
-        return OnboardingCubit();
-      },
+      create: (_) => OnboardingCubit()..precacheImages(context),
       child: const _OnboardingView(),
     );
   }
@@ -39,22 +35,6 @@ class __OnboardingViewState extends State<_OnboardingView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      if (mounted) {
-        _precacheImages(context);
-      }
-    });
-  }
-
-  Future<void> _precacheImages(BuildContext context) async {
-    final slidesForCache = _buildSlides(context);
-    for (final s in slidesForCache) {
-      final img = s.image;
-      if (img != null && img.toLowerCase().endsWith('.png')) {
-        final image = AssetImage(img);
-        await precacheImage(image, context);
-      }
-    }
   }
 
   List<OnboardModel> _buildSlides(BuildContext context) => [
@@ -88,21 +68,19 @@ class __OnboardingViewState extends State<_OnboardingView> {
           final page = context.select((OnboardingCubit c) => c.currentPage);
           return Stack(
             children: [
-              AnimatedShape(slides: slides, cubit: cubit, page: page),
+              // AnimatedShape(slides: slides, cubit: cubit, page: page),
               PageView.builder(
                 controller: cubit.pageController,
                 physics: const BouncingScrollPhysics(),
                 onPageChanged: cubit.onPageChanged,
                 itemCount: slides.length,
-                itemBuilder: (_, i) => KeepAliveSlide(slide: slides[i]),
-                allowImplicitScrolling: true,
+                itemBuilder: (_, i) => Slide(slide: slides[i]),
               ),
               Positioned(
                 bottom: 50.h,
                 left: 0,
                 right: 0,
                 child: Dots(
-                  dotAnimation: cubit.dotAnimation,
                   currentPage: page,
                   count: slides.length,
                 ),

@@ -134,6 +134,7 @@ class LoginScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(40.r)),
@@ -154,13 +155,15 @@ class LoginScreen extends StatelessWidget {
             }
           },
           builder: (otpContext, state) {
-            return OtpBottomSheet(
-              controller: otpController,
-              onConfirm: (code) {
-                PrintUtil.debug('OTP Entered: $code');
-                otpContext.read<LoginCubit>().verifyOtp(code);
-              },
-              isLoading: state is LoginOtpVerifying,
+            return SafeArea(
+              child: OtpBottomSheet(
+                controller: otpController,
+                onConfirm: (code) {
+                  PrintUtil.debug('OTP Entered: $code');
+                  otpContext.read<LoginCubit>().verifyOtp(code);
+                },
+                isLoading: state is LoginOtpVerifying,
+              ),
             );
           },
         ),

@@ -114,3 +114,5 @@ class WishlistItemRemovedSuccess extends GlobalState {
 }
 
 class ProfileUpdating extends GlobalState {}
+
+class GlobalLocationUpdated extends GlobalState {} // Add this state
