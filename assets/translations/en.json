@@ -92,5 +92,6 @@
   "selected_location": "Selected location",
   "current_location": "Current location",
   "confirm_location": "Confirm location",
-  "unknown_street": "Unknown Street"
+  "unknown_street": "Unknown Street",
+  "profile": "Profile"
 }

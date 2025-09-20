@@ -97,5 +97,6 @@
   "selected_location": "الموقع المحدد",
   "current_location": "الموقع الحالي",
   "confirm_location": "تأكيد الموقع",
-  "unknown_street": "شارع غير معروف"
+  "unknown_street": "شارع غير معروف",
+  "profile": "الملف الشخصي"
 }

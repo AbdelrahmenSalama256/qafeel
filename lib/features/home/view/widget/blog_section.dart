@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qafeel/core/locale/app_loacl.dart';
 
 import '../../../../core/constants/app_colors.dart';
 
@@ -23,7 +24,7 @@ class BlogSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'المقالات',
+          "blogs".tr(context),
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w800,
@@ -73,6 +74,7 @@ class BlogSection extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.all(12.w),
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.only(

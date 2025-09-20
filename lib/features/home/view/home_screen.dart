@@ -245,14 +245,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 'assets/images/png/logo-icon.png',
               ],
               titles: [
-                "blog1_title".tr(context),
-                "blog2_title".tr(context),
-                "blog3_title".tr(context),
+                'نصائح للوقاية من السيارات القافلة',
+                'كيف تتعامل مع المواقف الطارئة',
+                'أفضل الممارسات لسلامة المركبات',
               ],
               descriptions: [
-                "blog1_desc".tr(context),
-                "blog2_desc".tr(context),
-                "blog3_desc".tr(context),
+                'تعرف على أفضل الطرق للوقاية من مشاكل السيارات',
+                'دليل شامل للتعامل مع الحالات الطارئة على الطريق',
+                'نصائح مهمة للحفاظ على سلامة مركبتك',
               ],
               onBlogPressed: (index) {
                 PrintUtil.debug('Blog $index clicked');
